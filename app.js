@@ -24,7 +24,7 @@ app.use(cors({
 
 // map routes
 const postsController = require('./controllers/posts');
-app.use('/api/posts', postsController);
+app.use('/v1/api/posts', postsController);
 
 // start server
 app.listen(3000);
