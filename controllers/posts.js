@@ -37,4 +37,15 @@ router.delete('/:_id', async (req, res, next) => {
     }
 });
 
+/* PUT: /api/posts/abc123 => update selected post */
+router.put('/:_id', async (req, res, next) => {
+    try {
+        let post = await Post.findByIdAndUpdate(req.params._id, req.body);
+        return res.json(post).status(202); // 202: Resource Modified
+    }
+    catch(err) {
+        return res.json(err).status(404); // 404: Not Found
+    }
+});
+
 module.exports = router;
