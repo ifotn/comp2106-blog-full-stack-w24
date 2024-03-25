@@ -26,4 +26,15 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+/* DELETE: /api/posts/abc123 => delete selected post */
+router.delete('/:_id', async (req, res, next) => {
+    try {
+        await Post.findByIdAndDelete(req.params._id);
+        return res.json({}).status(204); // 204: No Content
+    }
+    catch(err) {
+        return res.json(err).status(404); // 404: Not Found
+    }
+});
+
 module.exports = router;
