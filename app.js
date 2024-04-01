@@ -16,15 +16,19 @@ mongoose.connect(process.env.CONNECTION_STRING, {})
 .catch((err) => { console.log (`DB Connection Failed ${err}`); });
 
 // enable CORS for angular client app BEFORE controllers
-const cors = require('cors');
-app.use(cors({
-    origin: process.env.CLIENT_URL,
-    methods: 'GET,POST,PUT,DELETE,HEAD,OPTIONS'
-}));
+// const cors = require('cors');
+// app.use(cors({
+//     origin: process.env.CLIENT_URL,
+//     methods: 'GET,POST,PUT,DELETE,HEAD,OPTIONS'
+// }));
 
 // map routes
 const postsController = require('./controllers/posts');
 app.use('/v1/api/posts', postsController);
+
+// route any requests at the root to load the angular front-end app
+app.use(express.static(__dirname + '/public'));
+app.get('*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
 // start server
 app.listen(3000);
